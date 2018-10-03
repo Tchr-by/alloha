@@ -21,7 +21,6 @@ function db_company_register_post_type() {
                         'menu_name'          => 'Компании'
                 );
 
-
                 $arg = array(
                         'labels'              => $label,
                         'public'              => true,
