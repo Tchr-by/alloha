@@ -37,7 +37,6 @@ Template Name: all_here
             'tag'         =>3,7,14,
             'numberposts' => -1,
             'post_type'   => 'post',
-            'suppress_filters' => true,
             ) );
 
             foreach( $first_gp as $post ){
@@ -55,7 +54,6 @@ Template Name: all_here
                 'exclude'     =>3,8,9,
                 'numberposts' => -1,
                 'post_type'   => 'page',
-                'suppress_filters' => true,
             ) );
 
             foreach( $second_gp as $post ){
@@ -69,15 +67,19 @@ Template Name: all_here
 
             <?php
             $third_gp = get_posts( array(
-            'category'    =>13,
+            'tax_query'   => array (
+                    array (
+                    'taxonomy' => 'field_activity',
+                    'field' => 'id',
+                    'terms' => 13,
+                    ) ),
             'numberposts' => -1,
             'post_type'   => 'projects',
-            'suppress_filters' => true,
             ) );
 
             foreach( $third_gp as $post ){
                 setup_postdata( $post ); ?>
-                <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
+                <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <?php print_r( array_shift(get_the_terms($post->ID, 'field_activity'))->term_taxonomy_id );//провека вывода id taxonomy ?></p>
                 <?php
 
             };
@@ -91,8 +93,7 @@ Template Name: all_here
                 'numberposts' => -1,
                 'post_type'   => array('projects','page','post'),
                 'post_status' => 'draft',
-                'suppress_filters' => true,
-            ) );
+                ) );
 
             foreach( $fourth_gp as $post ){
                 setup_postdata( $post ); ?>
